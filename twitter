@@ -1,0 +1,123 @@
+#pragma warning(disable:4996)
+#include<stdio.h>
+#include<iostream>
+#include<string>
+#include<malloc.h>
+
+typedef struct Node1 {
+	int data;
+	char iden_num[20];
+	char date[40];
+	char name[20];
+	struct Node1 * next;
+}node1;
+node1 * head1;
+
+void insertnode_profile(node1 ** head1, int value, char number1, char number2, char number3) {
+	node1 * temp = (node1*)malloc(sizeof(node1));
+	temp->data = value;
+	temp->iden_num[20] = number1;
+	temp->date[40] = number2;
+	temp->name[20] = number3;
+	temp->next = NULL;
+
+	if (head1 != NULL)
+		temp->next = *head1;
+
+	*head1 = temp;
+}
+
+typedef struct Node2 {
+	int data;
+	char id[20];
+	char friend_id[20];
+	struct Node2 * next;
+}node2;
+node2 * head2;
+
+void insertnode_friend(node2 ** head2, int value, char number1, char number2) {
+	node2 * temp = (node2*)malloc(sizeof(node2));
+	temp->data = value;
+	temp->id[20] = number1;
+	temp->friend_id[20] = number2;
+	temp->next = NULL;
+
+	if (head2 != NULL)
+		temp->next = *head2;
+
+	*head2 = temp;
+}
+
+typedef struct Node3 {
+	int data;
+	char iden_num[20];
+	char date[40];
+	char word[50];
+	struct Node3 * next;
+}node3;
+node3 * head3;
+
+void insertnode_word(node3 ** head3, int value, char number1, char number2, char number3) {
+	node3 * temp = (node3*)malloc(sizeof(node3));
+	temp->data = value;
+	temp->iden_num[20] = number1;
+	temp->date[40] = number2;
+	temp->word[50] = number3;
+	temp->next = NULL;
+
+	if (head3 != NULL)
+		temp->next = *head3;
+
+	*head3 = temp;
+}
+
+typedef struct tweet_user_profile {
+	char iden_num[20];
+	char date[40];
+	char name[20];
+} tweeter1;
+
+typedef struct tweet_friendship {
+	char id[20];
+	char friend_id[20];
+} tweeter2;
+
+typedef struct word_tweet {
+	char iden_num[20];
+	char date[40];
+	char word[50];
+} tweeter3;
+
+void printnode(node2 * node)
+{
+	node2 * temp = node;
+	while (temp != NULL)
+	{
+		printf("%c\n", temp->id);
+		printf("%c\n", temp->friend_id);
+		temp = temp->next;
+	}
+}
+
+void main() {
+	int val = 1;
+	char a[20];
+	char b[50];
+	char c[40];
+	FILE * fp1 = fopen("user.txt", "r");
+	FILE * fp2 = fopen("friend.txt", "r");
+	FILE * fp3 = fopen("word.txt", "r");
+
+	fgets(a, 20, fp2);
+	fgets(b, 50, fp2);
+
+	while (a != '\0')
+	{
+		insertnode_friend(&head2, val, a[20], b[50]);
+		fgets(a, 20, fp2);
+		fgets(b, 50, fp2);
+		fgets(c, 40, fp2);
+		val++;
+	}
+	printnode(head2);
+}
