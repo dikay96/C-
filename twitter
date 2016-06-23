@@ -4,6 +4,10 @@
 #include<string>
 #include<malloc.h>
 
+int val1 = 1;
+int val2 = 1;
+int val3 = 1;
+
 typedef struct Node1 {
 	int data;
 	char iden_num[20];
@@ -13,12 +17,12 @@ typedef struct Node1 {
 }node1;
 node1 * head1;
 
-void insertnode_profile(node1 ** head1, int value, char number1, char number2, char number3) {
+void insertnode_profile(node1 ** head1, int value, char* number1, char* number2, char* number3) {
 	node1 * temp = (node1*)malloc(sizeof(node1));
 	temp->data = value;
-	temp->iden_num[20] = number1;
-	temp->date[40] = number2;
-	temp->name[20] = number3;
+	strcpy(temp->iden_num, number1);
+	strcpy(temp->date, number2);
+	strcpy(temp->name, number3);
 	temp->next = NULL;
 
 	if (head1 != NULL)
@@ -35,11 +39,11 @@ typedef struct Node2 {
 }node2;
 node2 * head2;
 
-void insertnode_friend(node2 ** head2, int value, char number1, char number2) {
+void insertnode_friend(node2 ** head2, int value, char* number1, char* number2) {
 	node2 * temp = (node2*)malloc(sizeof(node2));
 	temp->data = value;
-	temp->id[20] = number1;
-	temp->friend_id[20] = number2;
+	strcpy(temp->id,number1);
+	strcpy(temp->friend_id,number2);
 	temp->next = NULL;
 
 	if (head2 != NULL)
@@ -52,17 +56,57 @@ typedef struct Node3 {
 	int data;
 	char iden_num[20];
 	char date[40];
-	char word[50];
+	char word[300];
 	struct Node3 * next;
 }node3;
 node3 * head3;
 
-void insertnode_word(node3 ** head3, int value, char number1, char number2, char number3) {
+void most_tweet_search(void) // 야 이건 포기해라
+{
+	node3 * temp = (node3*)malloc(sizeof(node3));
+	char mostword[300];
+	char mosttword[300];
+	int count = val3;
+	int mostt = 0;
+	int most = 0;
+	int strr = 0;
+	for (int i = count; i > 0; i--)
+	{
+		strcpy(mostword, temp->word);
+		temp = temp->next;
+		for (int j = count; j > 0; j--)
+		{
+			strr = strcmp(mostword, temp->word);
+			if (strr == 0)
+				most++;
+
+		}
+		if (most > mostt)
+		{
+			mostt = most;
+			strcpy(mosttword, mostword);
+		}
+			most = 0;
+	} 
+	printf("%s", mosttword);
+}
+
+void tweet_trash(void);
+
+void find_user_tweet(void);
+
+void delete_tweet(void);
+
+void delete_user(void);
+
+// 그리고 인터페이스
+
+void insertnode_word(node3 ** head3, int value, char* number1, char* number2, char* number3) {
 	node3 * temp = (node3*)malloc(sizeof(node3));
 	temp->data = value;
-	temp->iden_num[20] = number1;
-	temp->date[40] = number2;
-	temp->word[50] = number3;
+	strcpy(temp->iden_num,number1);
+	strcpy(temp->date,number2);
+	strcpy(temp->word,number3);
 	temp->next = NULL;
 
 	if (head3 != NULL)
@@ -88,36 +132,65 @@ typedef struct word_tweet {
 	char word[50];
 } tweeter3;
 
-void printnode(node2 * node)
+void printnode2(void)
 {
-	node2 * temp = node;
+	node2 * temp = head2;
 	while (temp != NULL)
 	{
-		printf("%c\n", temp->id);
-		printf("%c\n", temp->friend_id);
+		printf("%s", temp->id);
+		printf("%s\n", temp->friend_id);;
 		temp = temp->next;
 	}
+
 }
 
+
+
 void main() {
-	int val = 1;
 	char a[20];
 	char b[50];
-	char c[40];
+	char c[280];
+	char d[3];
+
 	FILE * fp1 = fopen("user.txt", "r");
 	FILE * fp2 = fopen("friend.txt", "r");
 	FILE * fp3 = fopen("word.txt", "r");
 
+	fgets(a, 20, fp1);
+	fgets(b, 50, fp1);
+	fgets(c, 40, fp1);
+
 	fgets(a, 20, fp2);
 	fgets(b, 50, fp2);
 
-	while (a != '\0')
+	fgets(a, 20, fp3);
+	fgets(b, 50, fp3);
+	fgets(c, 280, fp3);
+
+	while (fgets(d, 3, fp1) != 0)
 	{
-		insertnode_friend(&head2, val, a[20], b[50]);
+		insertnode_profile(&head1, val1, a, b, c);
+		fgets(a, 20, fp1);
+		fgets(b, 50, fp1);
+		fgets(c, 40, fp1);
+		val1++;
+	}
+
+	while (fgets(d, 3, fp2) != 0)
+	{
+		insertnode_friend(&head2, val2, a, b);
 		fgets(a, 20, fp2);
 		fgets(b, 50, fp2);
-		fgets(c, 40, fp2);
-		val++;
+		val2++;
 	}
-	printnode(head2);
+
+	while (fgets(d, 3, fp3) != 0)
+	{
+		insertnode_word(&head3, val3, a, b, c);
+		fgets(a, 20, fp3);
+		fgets(b, 50, fp3);
+		fgets(c, 280, fp3);
+		val3++;
+	}
+	most_tweet_search();
 }
