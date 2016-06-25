@@ -1,0 +1,757 @@
+#pragma warning(disable:4996)
+#include<stdio.h>
+#include<iostream>
+#include<string>
+#include<malloc.h>
+
+int val1 = 0;
+int val2 = 0;
+int val3 = 0;
+
+typedef struct Node1 {
+	int data;
+	char iden_num[20];
+	char date[40];
+	char name[20];
+	struct Node1 * next;
+}node1;
+node1 * head1;
+
+void insertnode_profile(node1 ** head1, int value, char* number1, char* number2, char* number3) {
+	node1 * temp = (node1*)malloc(sizeof(node1));
+	temp->data = value;
+	strcpy(temp->iden_num, number1);
+	strcpy(temp->date, number2);
+	strcpy(temp->name, number3);
+	temp->next = NULL;
+
+	if (head1 != NULL)
+		temp->next = *head1;
+
+	*head1 = temp;
+}
+void countuser() {
+	int num;
+	num = val1 + 1;
+	printf("%d\n", num);
+}
+
+typedef struct Node2 {
+	int data;
+	char id[20];
+	char friend_id[20];
+	struct Node2 * next;
+}node2;
+node2 * head2;
+
+void insertnode_friend(node2 ** head2, int value, char* number1, char* number2) {
+	node2 * temp = (node2*)malloc(sizeof(node2));
+	temp->data = value;
+	strcpy(temp->id,number1);
+	strcpy(temp->friend_id,number2);
+	temp->next = NULL;
+
+	if (head2 != NULL)
+		temp->next = *head2;
+
+	*head2 = temp;
+}
+
+void countfriend(void) {
+	int num = 0;
+	num = val2 + 1;
+	printf("%d\n", num);
+}
+
+void mostfriend(void) {
+	int most = 0;
+	int top_most = 0;
+	int count = val2;
+	int strr = 0;
+	char id[20];
+	char dlddu[20];
+	node2 * temp = head2;
+	strcpy(id, temp->id);
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(id, temp->id);
+		if (strr == 0)
+		{
+			most++;
+			if (top_most <= most)
+			{
+				top_most = most;
+				strcpy(dlddu, id);
+			}
+		}
+		else
+		{
+			most = 0;
+			strcpy(id, temp->id);
+		}
+		temp = temp->next;
+	}
+	printf("%d\n", top_most);
+}
+
+void leastfriend(void) {
+	int most = 0;
+	int top_most = 0;
+	int count = val2;
+	int strr = 0;
+	int min = 500;
+	char id[20];
+	char dlddu[20];
+	node2 * temp = head2;
+	strcpy(id, temp->id);
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(id, temp->id);
+		if (strr == 0)
+		{
+			most++; 
+			if (top_most <= most)
+			{
+				top_most = most;
+			}
+		}
+		else
+		{
+			most = 0;
+			if (top_most <= min) //1<= 0
+			{
+				min = top_most;
+			}
+			top_most = 0;
+			strcpy(id, temp->id);
+		}
+		temp = temp->next;
+	}
+	printf("%d\n", min);
+}
+
+typedef struct Node3 {
+	int data;
+	char iden_num[20];
+	char date[40];
+	char word[300];
+	struct Node3 * next;
+}node3;
+node3 * head3;
+
+void insertnode_word(node3 ** head3, int value, char* number1, char* number2, char* number3) {
+	node3 * temp = (node3*)malloc(sizeof(node3));
+	temp->data = value;
+	strcpy(temp->iden_num, number1);
+	strcpy(temp->date, number2);
+	strcpy(temp->word, number3);
+	temp->next = NULL;
+
+	if (head3 != NULL)
+		temp->next = *head3;
+
+	*head3 = temp;
+}
+
+void pertweet(void) {
+	int num = 0;
+	int count = val3;
+	int strr = 0;
+	int strr2 = 0;
+	float total = 0;
+	float usertotal = 0;
+	char id[50];
+	char id2[20];
+	num = val3 + 1;
+	node3 * temp = head3;
+	strcpy(id, temp->date);
+	strcpy(id2, temp->iden_num);
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(id, temp->date);
+		strr2 = strcmp(id2, temp->iden_num);
+		if (strr != 0)
+		{
+			total+= 1;
+			strcpy(id, temp->date);
+		}
+		if (strr2 != 0)
+		{
+			usertotal+= 1;
+			strcpy(id2, temp->iden_num);
+		}
+		temp = temp->next;
+	}
+	float per = total / usertotal;
+	printf("%f\n", per);
+}
+
+void totaltweet(void) {
+	int num = 0;
+	int count = val3;
+	int strr = 0;
+	int total = 0;
+	char id[50];
+	num = val3 + 1;
+	node3 * temp = head3;
+	strcpy(id, temp->date);
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(id, temp->date);
+		if (strr != 0)
+		{
+			total++;
+			strcpy(id, temp->date);
+		}
+		temp = temp->next;
+	}
+	printf("%d\n", total);
+}
+
+void countfriend2(void) {
+	float num = 0;
+	int count = val2;
+	int strr = 0;
+	float total = 1;
+	char id[20];
+	num = val2 + 1;
+	node2 * temp = head2;
+	strcpy(id, temp->id);
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(id, temp->id);
+		if (strr != 0)
+		{
+			total = total + 1;
+			strcpy(id, temp->id);
+		}
+		temp = temp->next;
+	}
+	float per = num / total;
+	printf("%f\n", per);
+}
+
+void deletenode()
+{
+	node3*temp = NULL;
+}
+
+void most_tweet_search(void) //which word is tweeted the most by all users
+{
+	node3 * temp = (node3*)malloc(sizeof(node3));
+	char mostword[300];
+	char mosttword[300];
+	int count = val3;
+	int mostt = 0;
+	int most = 0;
+	int strr = 0;
+	int i = 0;
+	for (i = count; i > 0; i--)
+	{
+		node3 * temp = head3;
+		for (int k = i; k > 1; k--)
+		{
+			temp = temp->next;
+		}
+		strcpy(mostword, temp->word);
+		for (int j = count; j > 0; j--)
+		{
+			node3 * temp = head3;
+			for (int k = j; k > 1; k--)
+			{
+				temp = temp->next;
+			}
+			strr = strcmp(mostword, temp->word);
+			if (strr == 0)
+				most++;
+
+		}
+		if (most > mostt)
+		{
+			mostt = most;
+			strcpy(mosttword, mostword);
+		}
+			most = 0;
+	} 
+	printf("%s\n", mosttword);
+}
+
+void find_tweet_dlddu(void) { //Which user tweeted the most words
+	int most = 0;
+	int top_most = 0;
+	int count = val3;
+	int strr = 0;
+	char id[20];
+	char dlddu[20];
+	node3 * temp = head3;
+	strcpy(id, temp->iden_num);
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(id, temp->iden_num);
+		if (strr == 0)
+		{
+			most++;
+			if (top_most <= most)
+			{
+				top_most = most;
+				strcpy(dlddu, id);
+			}
+		}
+		else
+		{
+			most = 0;
+		}
+		temp = temp->next;
+		strcpy(id, temp->iden_num);
+	}
+	printf("%s\n", dlddu);
+}
+
+void maximum_tweet(void) {
+	int most = 0;
+	int top_most = 0;
+	int count = val3;
+	int strr = 0;
+	char id[20];
+	char dlddu[20];
+	node3 * temp = head3;
+	strcpy(id, temp->iden_num);
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(id, temp->iden_num);
+		if (strr == 0)
+		{
+			most++;
+			if (top_most <= most)
+			{
+				top_most = most;
+				strcpy(dlddu, id);
+			}
+		}
+		else
+		{
+			most = 0;
+			strcpy(id, temp->iden_num);
+		}
+		temp = temp->next;
+	}
+	printf("%d\n", top_most);
+}
+
+void minimum_tweet(void) {
+	int most = 0;
+	int top_most = 0;
+	int count = val3;
+	int strr = 0;
+	int min = 300;
+	char id[20];
+	char dlddu[20];
+	node3 * temp = head3;
+	strcpy(id, temp->iden_num);
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(id, temp->iden_num);
+		if (strr == 0)
+		{
+			most++;
+			if (top_most <= most)
+			{
+				top_most = most;
+				strcpy(dlddu, id);
+			}
+		}
+		else
+		{
+			most = 0;
+			if (min >= top_most)
+			{
+				min = top_most;
+			}
+			top_most = 0;
+			strcpy(id, temp->iden_num);
+		}
+		temp = temp->next;
+	}
+	printf("%d\n", top_most);
+}
+/*
+void top5_tweet_word(void) {
+	int most = 0;
+	int k = 0;
+	int top_most = 0;
+	int count = val3;
+	int strr = 0;
+	int str[5] = { 2,2,2,2,2 };
+	int rank[5];
+	int swap = 0;
+	char c_swap[130];
+	char id[130];
+	char dlddu[5][130];
+	char beje[5][130];
+	node3 * temp = head3;
+	strcpy(id, temp->word);
+	for (int j = count; j > count - 5; j--)
+	{
+		node3 * temp = head3;
+		for (int l = 0; l < k; l++)
+		{
+			temp = temp->next;
+		}
+		strcpy(id, temp->word);
+		for (int i = count; i > 0; i--)
+		{
+			strr = strcmp(id, temp->word);
+			if (strr == 0)
+			{
+				most++;
+			}
+			temp = temp->next;
+		}
+			top_most = most;
+			strcpy(dlddu[k], id);
+		strcpy(beje[k], dlddu[k]);
+		rank[k] = top_most;
+		k++;
+		top_most = 0;
+		most = 0;
+	}
+	for (int i = 0; i < 5; i++)
+		for (int j = i+1; j < 5; j++)
+		{
+			if (rank[i] < rank[j])
+			{
+				swap = rank[i];
+				rank[j] = rank[i];
+				rank[j] = swap;
+				strcpy(c_swap,beje[i]);
+				strcpy(beje[j],beje[i]);
+				strcpy(beje[j],c_swap);
+			}
+		}
+
+	for (int j = count - 5; j >0; j--)
+	{
+		node3 * temp = head3;
+		for (int l = 0; l < k; l++)
+		{
+			temp = temp->next;
+			strcpy(id, temp->word);
+		}
+		for (int i = count; i > 0; i--)
+		{
+			strr = strcmp(id, temp->word);
+			if (strr == 0)
+			{
+				most++;
+			}
+			temp = temp->next;
+		}
+		if (rank[0] < most)
+		{
+			rank[3] = rank[4];
+			rank[2] = rank[3];
+			rank[1] = rank[2];
+			rank[0] = rank[1];
+			most = rank[0];
+			strcpy(beje[0], id);
+			most = 0;
+		}
+		else if (rank[1] < most)
+		{
+			rank[3] = rank[4];
+			rank[2] = rank[3];
+			rank[1] = rank[2];
+			most = rank[1];
+			strcpy(beje[1], id);
+			most = 0;
+		}
+		else if (rank[2] < most)
+		{
+			rank[3] = rank[4];
+			rank[2] = rank[3];
+			most = rank[2];
+			strcpy(beje[2], id);
+			most = 0;
+		}
+		if (rank[3] < most)
+		{
+			rank[3] = rank[4];
+			most = rank[3];
+			strcpy(beje[3], id);
+			most = 0;
+		}
+		if (rank[4] < most)
+		{
+			most = rank[4];
+			strcpy(beje[4], id);
+			most = 0;
+		}
+		top_most = 0;
+		most = 0;
+		k++;
+	}
+
+	for (int j = 0; j < 5; j++)
+	{
+		printf("%d. %s\n", j + 1, beje[j]);
+		printf("%d", rank[j]);
+	}
+}
+*/
+void top5_tweet_dlddu(void) {
+	int most = 0;
+	int top_most = 0;
+	int count = val3;
+	int strr = 0;
+	int str[5] = { 2,2,2,2,2 };
+	char id[20];
+	char dlddu[5][20];
+	char beje[5][20];
+	node3 * temp = head3;
+	strcpy(id, temp->iden_num);
+	for (int j = 0; j < 5; j++)
+	{
+		node3 * temp = head3;
+		for (int i = count; i > 0; i--)
+		{
+			strr = strcmp(id, temp->iden_num);
+			if (strr == 0 && strcmp(id,beje[0]) != 0 && strcmp(id, beje[1]) != 0 && strcmp(id, beje[2]) != 0 && strcmp(id, beje[3]) != 0) //일치한데 앞의id랑 같으면 패스 
+			{
+				most++;
+				if (top_most <= most)
+				{
+					top_most = most;
+					strcpy(dlddu[j], id);
+				}
+			}
+			else
+			{
+				most = 0;
+			}
+			temp = temp->next;
+			strcpy(id, temp->iden_num);
+		}
+		strcpy(beje[j], dlddu[j]);
+		top_most = 0;
+		most = 0;
+	}
+	for (int j = 0; j < 5; j++)
+		printf("%d. %s", j+1,beje[j]);
+}
+
+void find_word(void) // Find user who tweeted a word
+{
+	int count = val3;
+	int strr = 0;
+	int max = 0;
+	char tweet[300];
+	printf("Enter the word : ");
+	scanf("%s", &tweet);
+	char id[20];
+	node3 * temp = head3;
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(tweet, temp->word);
+		if (strr == 0)
+		{
+			strcpy(id, temp->iden_num);
+			printf("%s", id);
+		}
+		temp = temp->next;
+	}
+}
+
+void delete_tweet(void) { // Delete all mentions of a word
+	int count = val3;
+	int strr = 0;
+	int max = 0;
+	char tweet[300];
+	printf("Enter the word : ");
+	scanf("%s", &tweet);
+	printf("The word %s was deleted\n", tweet);
+
+	node3 * temp = head3;
+	for (int i = count; i > 0; i--)
+	{
+		strr = strcmp(tweet, temp->word);
+		if (strr == 0)
+		{
+			deletenode();
+		}
+		temp = temp->next;
+	}
+}
+void delete_user(void);
+
+/* typedef struct tweet_user_profile {
+	char iden_num[20];
+	char date[40];
+	char name[20];
+} tweeter1;
+
+typedef struct tweet_friendship {
+	char id[20];
+	char friend_id[20];
+} tweeter2;
+
+typedef struct word_tweet {
+	char iden_num[20];
+	char date[40];
+	char word[50];
+} tweeter3; */
+
+void printnode1(void)
+{
+	node1 * temp = head1;
+	while (temp != NULL)
+	{
+		printf("%s", temp->iden_num);
+		printf("%s", temp->date);
+		printf("%s\n", temp->name);
+		temp = temp->next;
+	}
+}
+
+void printnode2(void)
+{
+	node2 * temp = head2;
+	while (temp != NULL)
+	{
+		printf("%s", temp->id);
+		printf("%s\n", temp->friend_id);;
+		temp = temp->next;
+	}
+
+}
+
+void printnode3(void)
+{
+	node3 * temp = head3;
+	while (temp != NULL)
+	{
+		printf("%s", temp->iden_num);
+		printf("%s", temp->date);
+		printf("%s\n", temp->word);
+		temp = temp->next;
+	}
+}
+
+
+
+
+
+void main() {
+	char a[20];
+	char b[50];
+	char c[280];
+	char d[3];
+
+	FILE * fp1 = fopen("user.txt", "r");
+	FILE * fp2 = fopen("friend.txt", "r");
+	FILE * fp3 = fopen("word.txt", "r");
+
+	fgets(a, 20, fp1);
+	fgets(b, 50, fp1);
+	fgets(c, 40, fp1);
+	insertnode_profile(&head1, val1, a, b, c);
+
+	fgets(a, 20, fp2);
+	fgets(b, 50, fp2);
+	insertnode_friend(&head2, val2, a, b);
+
+	fgets(a, 20, fp3);
+	fgets(b, 50, fp3);
+	fscanf(fp3, "%s", &c);
+	fgets(d, 3, fp3);
+	insertnode_word(&head3, val3, a, b, c);
+
+	while (fgets(d, 3, fp1) != 0)
+	{
+		val1++;
+		fgets(a, 20, fp1);
+		fgets(b, 50, fp1);
+		fgets(c, 40, fp1);
+		insertnode_profile(&head1, val1, a, b, c);
+	}
+
+	while (fgets(d, 3, fp2) != 0)
+	{
+		val2++;
+		fgets(a, 20, fp2);
+		fgets(b, 50, fp2);
+		insertnode_friend(&head2, val2, a, b);
+	}
+
+	while (fgets(d, 3, fp3) != 0)
+	{
+		val3++;
+		fgets(a, 20, fp3);
+		fgets(b, 50, fp3);
+		fscanf(fp3,"%s",&c);
+		fgets(d, 3, fp3);
+		insertnode_word(&head3, val3, a, b, c);
+	}
+	printf("0. Read data files\n");
+	printf("1. Display statistics\n");
+	printf("2. Top 5 most tweeted words\n");
+	printf("3. Top 5 most tweeted users\n");
+	printf("4. Find users who tweeted a word\n");
+	printf("5. Find all people who are friends of the above users\n");
+	printf("6. Delete all mentions of a word\n");
+	printf("7. Delete all users who mentioned a word\n");
+	printf("8. Find strongly connected components\n");
+	printf("9. Find shortest path from a given user\n");
+	printf("99. Quit\n");
+	int n = 0;
+	while (n != 99)
+	{
+		printf("Select Menu: ");
+		scanf("%d", &n);
+		switch (n)
+		{
+		case 0:
+			printf("Total users : ");
+			countuser();
+			printf("Total friendship records : ");
+			countfriend();
+			printf("Total tweets : ");
+			totaltweet();
+			break;
+		case 1:
+			printf("Average number of friends: ");
+			countfriend2();
+			printf("Minimum friends: ");
+			leastfriend();
+			printf("Maximun number of friends: ");
+			mostfriend();
+			printf("\n");
+			printf("Average tweets per user: ");
+			pertweet();
+			printf("Minimum tweets per user: ");
+			minimum_tweet();
+			printf("Maximum tweets per user: ");
+			maximum_tweet();
+			break;
+		case 2:
+			top5_tweet_word();
+			break;
+		case 3:
+			top5_tweet_dlddu();
+			break;
+		case 4:
+			find_word();
+			break;
+		case 5:
+			break;
+		case 6:
+			delete_tweet();
+			break;
+		case 7:
+			break;
+		case 8:
+			break;
+		case 9:
+			break;
+		}
+	}
+}
