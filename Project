@@ -231,11 +231,6 @@ void countfriend2(void) {
 	printf("%f\n", per);
 }
 
-void deletenode()
-{
-	node3*temp = NULL;
-}
-
 void most_tweet_search(void) //which word is tweeted the most by all users
 {
 	node3 * temp = (node3*)malloc(sizeof(node3));
@@ -576,7 +571,7 @@ void delete_tweet(void) { // Delete all mentions of a word
 		strr = strcmp(tweet, temp->word);
 		if (strr == 0)
 		{
-			deletenode();
+			strcpy(temp->word, NULL);
 		}
 		temp = temp->next;
 	}
@@ -733,7 +728,7 @@ void main() {
 			maximum_tweet();
 			break;
 		case 2:
-			top5_tweet_word();
+		//	top5_tweet_word();
 			break;
 		case 3:
 			top5_tweet_dlddu();
